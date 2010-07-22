@@ -1,6 +1,7 @@
 require "rubygems"
-require "bundler"
-Bundler.require(:default)
+require "bundler/setup"
+
+require "rspec"
 
 require File.expand_path("../../lib/throttler", __FILE__)
 
