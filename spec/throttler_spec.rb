@@ -13,6 +13,10 @@ class Foo
     throttle("baz"){ noop }
   end
 
+  def exceptional
+    throttle("bar"){ raise }
+  end
+
   def noop; end
 end
 
@@ -29,7 +33,7 @@ describe Throttler do
       end
     end
 
-    time.should be_close 2, 0.01
+    time.should be_close 2, 0.1
   end
 
   it "throttles threads" do
@@ -74,5 +78,10 @@ describe Throttler do
     threads.each { |t| Thread.kill(t) }
 
     count.should eql 6
+  end
+
+  it "removes lock if block raises exception" do
+    lambda{ Foo.new.exceptional }.should raise_error
+    File.open("/tmp/.bar") { |f| f.flock(File::LOCK_EX | File::LOCK_NB).should_not be_false }
   end
 end
