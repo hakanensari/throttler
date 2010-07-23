@@ -20,7 +20,6 @@ Jeweler::Tasks.new do |gemspec|
   gemspec.email = "code@papercavalier.com"
   gemspec.homepage = "http://github.com/papercavalier/throttler"
   gemspec.authors = ["Hakan Ensari"]
-  gemspec.add_development_dependency "rspec", "2.0.0.beta.17"
 end
 
 Jeweler::GemcutterTasks.new
