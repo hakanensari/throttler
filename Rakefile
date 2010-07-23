@@ -19,7 +19,7 @@ Jeweler::Tasks.new do |gemspec|
   gemspec.require_path = "lib"
   gemspec.email = "code@papercavalier.com"
   gemspec.homepage = "http://github.com/papercavalier/throttler"
-  gemspec.authors = ["Hakan Ensari"]
+  gemspec.authors = ["Hakan Ensari", "Piotr Laszewski"]
 end
 
 Jeweler::GemcutterTasks.new
