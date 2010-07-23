@@ -1,26 +1,78 @@
+require "benchmark"
+require "fileutils"
 require "spec_helper"
 
+class Foo
+  include Throttler
+
+  def bar
+    throttle("bar"){ noop }
+  end
+
+  def baz
+    throttle("baz"){ noop }
+  end
+
+  def noop; end
+end
+
 describe Throttler do
-  it "should create a lock file" do
-   #lock = @throttle.send :file_path
-   #File.file?(@throttle.send(:file_path)).should be_true
+  before do
+    FileUtils.rm "/tmp/.bar", :force => true
+    FileUtils.rm "/tmp/.baz", :force => true
   end
 
-  context "loop" do
-    it "throttles" do
-      run "simple_loop"
-
-      duration.should eql 10
+  it "throttles a loop" do
+    time = Benchmark.realtime do
+      3.times do
+        Foo.new.bar
+      end
     end
+
+    time.should be_close 2, 0.01
   end
-    # 
-    # 
-    # 
-    # it "should get the timestamp" do
-    #   File.open(@throttle.send(:file_path), "r") { |f| f.gets }.should match /^[0-9.]+$/
-    # end
-    # 
-    # it "should check in" do
-    #   
-    # end
+
+  it "throttles threads" do
+    count = 0
+    threads = 10.times.collect do
+      Thread.new do
+        foo = Foo.new
+        loop do
+          foo.bar
+          count += 1
+        end
+      end
+    end
+    sleep 2.2
+    threads.each { |t| Thread.kill(t) }
+
+    count.should eql 3
+  end
+
+  it "throttles concurrently-running scripts" do
+    time = Benchmark.realtime do
+      3.times do
+        `ruby #{File.dirname(__FILE__) + "/fixtures/foo.rb"}`
+      end
+    end
+
+    time.should be > 2.0
+  end
+
+  it "throttles by name" do
+    count = 0
+    threads = 10.times.collect do
+      Thread.new do
+        foo = Foo.new
+        loop do
+          count % 2 == 0 ? foo.bar : foo.baz
+          count += 1
+        end
+      end
+    end
+    sleep 2.2
+    threads.each { |t| Thread.kill(t) }
+
+    count.should eql 6
+  end
 end
