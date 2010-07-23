@@ -1,7 +1,0 @@
-h1. Throttler
-
-Throttler is a module that throttles the frequency at which concurrently-running instances of a Ruby block are executed.
-
-We use this to throttle multiple workers hitting the Amazon API through the same network port.
-
-!http://farm4.static.flickr.com/3537/3327996845_2aa5b0ed87.jpg!
