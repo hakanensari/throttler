@@ -4,7 +4,7 @@ class Foo
   include Throttler
 
   def bar
-    throttle("bar") { noop }
+    throttle("bar", 2.0) { noop }
   end
   
   def noop; end

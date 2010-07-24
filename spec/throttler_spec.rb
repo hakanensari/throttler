@@ -78,7 +78,7 @@ describe Throttler do
       end
     end
 
-    time.should be > 2.0
+    time.should be > 4.0
   end
 
   it "throttles by name" do
