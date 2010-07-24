@@ -53,6 +53,24 @@ describe Throttler do
     count.should eql 3
   end
 
+  it "throttles fibers" do
+    require "fiber"
+
+    time = Benchmark.realtime do
+      fib = Fiber.new do
+        foo = Foo.new
+        loop do
+          foo.bar
+          Fiber.yield
+        end
+      end
+
+      3.times { fib.resume }
+    end
+
+    time.should be_close 2, 0.01
+  end
+
   it "throttles concurrently-running scripts" do
     time = Benchmark.realtime do
       3.times do
