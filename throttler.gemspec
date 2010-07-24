@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{throttler}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hakan Ensari", "Piotr Laszewski"]
-  s.date = %q{2010-07-23}
+  s.date = %q{2010-07-24}
   s.description = %q{Throttles the frequency at which concurrently-running Ruby blocks are executed.}
   s.email = %q{code@papercavalier.com}
   s.extra_rdoc_files = [
@@ -18,7 +18,8 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "LICENSE",
-     "lib/throttler.rb"
+     "lib/throttler.rb",
+     "lib/throttler/throttle.rb"
   ]
   s.homepage = %q{http://github.com/papercavalier/throttler}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -27,8 +28,10 @@ Gem::Specification.new do |s|
   s.summary = %q{Throttles the frequency at which concurrently-running Ruby blocks are executed.}
   s.test_files = [
     "spec/fixtures/foo.rb",
+     "spec/integration/scenarios_spec.rb",
      "spec/spec_helper.rb",
-     "spec/throttler_spec.rb"
+     "spec/unit/throttler/throttle_spec.rb",
+     "spec/unit/throttler_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
