@@ -5,8 +5,8 @@ require "jeweler"
 
 Jeweler::Tasks.new do |gemspec|
   gemspec.name = "throttler"
-  gemspec.summary = "Throttles the frequency at which concurrently-running Ruby blocks are executed."
-  gemspec.description = "Throttles the frequency at which concurrently-running Ruby blocks are executed."
+  gemspec.summary = "Throttles the frequency in which asynchronously-executed Ruby blocks are run on a single server or network interface."
+  gemspec.description = "Throttles the frequency in which asynchronously-executed Ruby blocks are run on a single server or network interface."
   gemspec.files = Dir.glob("lib/**/*") + %w{LICENSE README.rdoc}
   gemspec.require_path = "lib"
   gemspec.email = "code@papercavalier.com"
