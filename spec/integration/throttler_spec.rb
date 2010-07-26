@@ -20,7 +20,7 @@ class Bar
   def noop; end
 end
 
-describe "Simple integration tests" do
+describe "Throttler" do
   before do
     FileUtils.rm "/tmp/.bar", :force => true
     FileUtils.rm "/tmp/.baz", :force => true
