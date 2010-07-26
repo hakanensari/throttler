@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + "/throttler/throttle"
+require File.dirname(__FILE__) + "/throttler/timer"
 
 # The Throttler module.
 #
@@ -13,14 +14,14 @@ module Throttler
   #    throttle("foo") { some_code }
   #
   def throttle(name, interval=1.0)
+    timer = Timer.new(name)
+    timer.lock
     begin
-      file = Throttle.new(name)
-      file.lock
-      file.delay interval
+      sleep [timer.timestamp + interval - Time.now.to_f, 0.0].max
       yield if block_given?
-      file.timestamp
+      timer.timestamp = Time.now.to_f
     ensure
-      file.unlock
+      timer.unlock
     end
   end
 end

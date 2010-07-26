@@ -1,17 +1,8 @@
 module Throttler
-
-  # The Throttle file
-  class Throttle
+  class Timer
     def initialize(name)
       path = "/tmp/.#{name}"
       @file = File.open(path, File::RDWR|File::CREAT)
-    end
-
-    def delay(interval)
-      last = @file.gets.to_f
-      last = (Time.now.to_f - interval) if last == 0.0
-
-      sleep [last + interval - Time.now.to_f, 0.0].max
     end
 
     def lock
@@ -19,8 +10,13 @@ module Throttler
     end
 
     def timestamp
+      @timestamp ||= @file.gets.to_f
+    end
+
+    def timestamp=(time)
       @file.rewind
-      @file.write(Time.now.to_f)
+      @file.write(time)
+      @timestamp = time
     end
 
     def unlock
