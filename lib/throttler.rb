@@ -1,15 +1,14 @@
-require File.dirname(__FILE__) + "/throttler/throttle"
 require File.dirname(__FILE__) + "/throttler/timer"
 
 # The Throttler module.
 #
-# Simply include this in the class where you wish to use the throttler.
+# Include this in the class where you wish to use the throttler.
 module Throttler
 
-  # Throttles execution of a block of code.
+  # Throttles the frequency in which a block is run.
   #
   # Pass name of throttler and optionally, the interval between each
-  # moment of execution. Latte defaults to one second.
+  # moment of execution. Latter defaults to one second.
   #
   #    throttle("foo") { some_code }
   #
