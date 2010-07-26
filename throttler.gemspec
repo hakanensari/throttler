@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{throttler}
-  s.version = "0.1.4"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hakan Ensari", "Piotr Laszewski"]
-  s.date = %q{2010-07-24}
-  s.description = %q{Throttles the frequency at which concurrently-running Ruby blocks are executed.}
+  s.date = %q{2010-07-26}
+  s.description = %q{Throttles the frequency in which asynchronously-executed Ruby blocks are run on a single server or network interface.}
   s.email = %q{code@papercavalier.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -19,18 +19,18 @@ Gem::Specification.new do |s|
   s.files = [
     "LICENSE",
      "lib/throttler.rb",
-     "lib/throttler/throttle.rb"
+     "lib/throttler/timer.rb"
   ]
   s.homepage = %q{http://github.com/papercavalier/throttler}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Throttles the frequency at which concurrently-running Ruby blocks are executed.}
+  s.summary = %q{Throttles the frequency in which asynchronously-executed Ruby blocks are run on a single server or network interface.}
   s.test_files = [
     "spec/fixtures/foo.rb",
-     "spec/integration/scenarios_spec.rb",
+     "spec/integration/throttler_spec.rb",
      "spec/spec_helper.rb",
-     "spec/unit/throttler/throttle_spec.rb",
+     "spec/unit/throttler/timer_spec.rb",
      "spec/unit/throttler_spec.rb"
   ]
 
