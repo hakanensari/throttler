@@ -10,7 +10,7 @@ Throttle concurrency.
 
       def request
         throttle("foo#{interface}", 1.0) do
-          #noop
+          # do something
         end
       end
 
@@ -27,7 +27,7 @@ Throttle concurrency.
     end
     
     sleep 1.2
-    count.should eql 2 # 98 threads pending
+    count.should eql(2)
 
 Use case
 --------
