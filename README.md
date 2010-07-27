@@ -24,7 +24,7 @@ Let's assume we have multiple workers hitting the Amazon API on three IP address
         interval  = 0.9
         
         # Say a request downloads in two seconds on average
-        throttle(name, interval) { sleep(2) }
+        throttle(name, interval){ sleep(2) }
       end
     end
     
