@@ -30,7 +30,7 @@ Let's assume we have multiple workers hitting the Amazon API on three IP address
     
     worker, count = Worker.new, 0
     
-    (0..3).each do |port|
+    (0..2).each do |port|
       10.times do
         Thread.new do
           count += 1
