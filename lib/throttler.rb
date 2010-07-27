@@ -7,8 +7,8 @@ module Throttler
 
   # Throttles the frequency in which a block is run.
   #
-  # Pass name of throttler and optionally, the interval between each
-  # moment of execution. Latter defaults to one second.
+  # Pass throttler scope and the interval between each execution.
+  # Latter defaults to one second.
   #
   #    throttle("foo") { some_code }
   #
