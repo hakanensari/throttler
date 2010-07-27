@@ -4,10 +4,14 @@ class Foo
   include Throttler
 
   def bar
-    throttle("bar", 2.0) do
-      #noop
-    end
+    throttle("foo", 2.0) { }
   end
+
+  def control; end
 end
 
-Foo.new.bar
+if ARGV.size == 0
+  Foo.new.bar
+else
+  Foo.new.control
+end
