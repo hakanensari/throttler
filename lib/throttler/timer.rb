@@ -1,7 +1,7 @@
 module Throttler
   class Timer
-    def initialize(name)
-      path = "/tmp/.#{name}"
+    def initialize(scope)
+      path = "/tmp/.#{scope}"
       @file = File.open(path, File::RDWR|File::CREAT)
     end
 

@@ -12,8 +12,8 @@ module Throttler
   #
   #    throttle("foo") { some_code }
   #
-  def throttle(name, interval=1.0)
-    timer = Timer.new(name)
+  def throttle(scope, interval=1.0)
+    timer = Timer.new(scope)
     timer.lock
     begin
       sleep [timer.timestamp + interval - Time.now.to_f, 0.0].max
