@@ -5,14 +5,10 @@ require File.dirname(__FILE__) + "/throttler/timer"
 # Include this in the class where you wish to use the throttler.
 module Throttler
 
-  # Throttles the frequency in which a block is run.
+  # Throttles the frequency in which a block is run
   #
-  # Pass throttler scope and the interval between each execution.
-  # Latter defaults to one second.
-  #
-  #    throttle("foo") { some_code }
-  #
-  def throttle(scope, interval=1.0)
+  # Optionally pass a scope and interval.
+  def throttle(scope="throttler", interval=1.0)
     timer = Timer.new(scope)
     timer.lock
     sleep [timer.timestamp + interval - Time.now.to_f, 0.0].max
