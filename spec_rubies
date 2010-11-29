@@ -1,0 +1,2 @@
+rvm ree@throttler,1.9.2@throttler exec bundle install
+rvm ree@throttler,1.9.2@throttler rake
