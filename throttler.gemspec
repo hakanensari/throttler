@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["code@papercavalier.com"]
   s.homepage    = "http://github.com/papercavalier/throttler"
   s.summary     = "A tired, cranky throttler"
-  s.description = "A tired, cranky module that throttles parallel-running Ruby scripts on a single machine."
+  s.description = "A tired, cranky module that helps you throttle stuff in parallel-running Ruby scripts on a single machine. A tired, cranky module that throttles parallel-running Ruby scripts on a single machine."
 
   s.rubyforge_project = "throttler"
 

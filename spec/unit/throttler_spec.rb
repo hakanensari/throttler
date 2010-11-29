@@ -27,7 +27,7 @@ describe Throttler do
     end
 
     context "by default" do
-      it "namespaces as `throttler`" do
+      it "names scope as `throttler`" do
         foo.throttle
         FileTest.exists?("/tmp/.throttler").should be_true
       end
