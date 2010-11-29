@@ -17,6 +17,6 @@ describe "Throttler" do
       4.times{ `ruby #{File.dirname(__FILE__) + "/../fixtures/foo.rb"}` }
     end
 
-    (time - startup_time).should be_close(6.0, 0.5)
+    (time - startup_time).should be_within(0.5).of(6.0)
   end
 end

@@ -6,30 +6,39 @@ describe Throttler do
   before do
     class Foo
       include Throttler
-
-      def bar
-        throttle("foo"){ raise }
-      end
     end
 
-    FileUtils.rm "/tmp/.foo", :force => true
-
-    @foo = Foo.new
+    FileUtils.rm "/tmp/.throttler", :force => true
   end
 
-  context "#throttle" do
-    it "removes lock even if block raises an exception" do
-      lambda{ @foo.throttle("foo"){ raise } }.should raise_error
+  let!(:foo) do
+    Foo.new
+  end
 
-      File.open("/tmp/.foo"){ |f| f.flock(File::LOCK_EX | File::LOCK_NB).should_not be_false }
+  describe "#throttle" do
+    it "removes a lock when an exception is raised" do
+      expect do
+        foo.throttle { raise }
+      end.to raise_error
+
+      File.open("/tmp/.throttler") do |f|
+        f.flock(File::LOCK_EX | File::LOCK_NB).should_not be_false
+      end
     end
 
-    it "throttles for one second by default" do
-      time = Benchmark.realtime do
-        2.times{ @foo.throttle("foo"){ } }
+    context "by default" do
+      it "namespaces as `throttler`" do
+        foo.throttle
+        FileTest.exists?("/tmp/.throttler").should be_true
       end
 
-      time.should be_close 1, 0.1
+      it "throttles for one second" do
+        time = Benchmark.realtime do
+          2.times{ foo.throttle }
+        end
+
+        time.should be_within(0.1).of(1)
+      end
     end
-  end  
+  end
 end

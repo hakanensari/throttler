@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + "/../../lib/throttler"
+$:.push File.expand_path("../../../lib", __FILE__)
+require "throttler"
 
 class Foo
   include Throttler

@@ -9,11 +9,11 @@ describe "Throttler" do
       include Throttler
 
       def bar
-        throttle("foo"){ }
+        throttle { }
       end
     end
 
-    FileUtils.rm "/tmp/.foo", :force => true
+    FileUtils.rm "/tmp/.throttler", :force => true
   end
 
   it "throttles fibers" do
@@ -24,6 +24,6 @@ describe "Throttler" do
       3.times { fib.resume }
     end
 
-    time.should be_close 2, 0.01
+    time.should be_within(0.1).of(2)
   end
 end

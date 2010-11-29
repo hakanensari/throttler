@@ -7,7 +7,7 @@ describe "Throttler" do
       include Throttler
 
       def bar
-        throttle("foo"){ }
+        throttle { }
       end
 
       def baz
@@ -15,7 +15,7 @@ describe "Throttler" do
       end
     end
 
-    %w{foo foo-prime}.each do |file|
+    %w{throttler foo-prime}.each do |file|
       FileUtils.rm "/tmp/.#{file}", :force => true
     end
   end
