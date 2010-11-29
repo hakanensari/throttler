@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + "/throttler/timer"
+require "throttler/timer"
 
-# The Throttler module.
+# = Throttler
 #
-# Include this in the class where you wish to use the throttler.
+# An old, rusty throttler that gets the job done
 module Throttler
 
   # Throttles the frequency in which a block is run

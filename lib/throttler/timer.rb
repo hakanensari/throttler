@@ -1,27 +1,27 @@
-module Throttler
+module Throttler #:nodoc:
   class Timer
     def initialize(scope)
       path = "/tmp/.#{scope}"
-      @file = File.open(path, File::RDWR|File::CREAT)
+      @timer = File.open(path, File::RDWR|File::CREAT)
     end
 
     def lock
-      @file.flock(File::LOCK_EX)
+      @timer.flock(File::LOCK_EX)
     end
 
     def timestamp
-      @timestamp ||= @file.gets.to_f
+      @timestamp ||= @timer.gets.to_f
     end
 
     def timestamp=(time)
-      @file.rewind
-      @file.write(time)
+      @timer.rewind
+      @timer.write(time)
       @timestamp = time
     end
 
     def unlock
-      @file.flock(File::LOCK_UN)
-      @file.close
+      @timer.flock(File::LOCK_UN)
+      @timer.close
     end
   end
 end
