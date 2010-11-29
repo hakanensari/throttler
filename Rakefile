@@ -1,17 +1,10 @@
-require "rubygems"
-require "bundler/setup"
+require "bundler"
 
-require "jeweler"
+require "rspec/core/rake_task"
 
-Jeweler::Tasks.new do |gemspec|
-  gemspec.name = "throttler"
-  gemspec.summary = "Throttles the frequency in which asynchronously-executed Ruby blocks are run on a single server or network interface."
-  gemspec.description = "Throttles the frequency in which asynchronously-executed Ruby blocks are run on a single server or network interface."
-  gemspec.files = Dir.glob("lib/**/*") + %w{LICENSE README.rdoc}
-  gemspec.require_path = "lib"
-  gemspec.email = "code@papercavalier.com"
-  gemspec.homepage = "http://github.com/papercavalier/throttler"
-  gemspec.authors = ["Hakan Ensari", "Piotr Laszewski"]
+desc "Run all specs in spec directory"
+RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = "spec/**/*_spec.rb"
 end
 
-Jeweler::GemcutterTasks.new
+task :default => :spec
