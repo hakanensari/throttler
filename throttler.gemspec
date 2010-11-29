@@ -4,7 +4,7 @@ require "throttler/version"
 
 Gem::Specification.new do |s|
   s.name        = "throttler"
-  s.version     = "0.2.1"
+  s.version     = Throttler::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Hakan Ensari", "Piotr Łaszewski"]
   s.email       = ["code@papercavalier.com"]
