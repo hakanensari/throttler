@@ -3,7 +3,7 @@ Throttler
 
 Throttler is a tired, cranky module that helps you throttle stuff in parallel-running Ruby scripts on a single machine.
 
-![Mapplethorpe](https://github.com/papercavalier/throttler/raw/master/mapplethorpe_chains.jpg)
+![Mapplethorpe](https://github.com/hakanensari/throttler/raw/master/mapplethorpe_chains.jpg)
 
 Example
 -------
