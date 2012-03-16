@@ -1,4 +1,4 @@
-module Throttler #:nodoc:
-  VERSION = "0.2.4"
+module Throttler
+  VERSION = '0.3.0'
 end
 
