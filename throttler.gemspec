@@ -14,8 +14,6 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "throttler"
 
-  s.add_development_dependency("rspec", ["~> 2.1.0"])
-
   s.files         = Dir.glob("lib/**/*") + %w(LICENSE README.md)
   s.test_files    = Dir.glob("spec/**/*")
   s.require_paths = ["lib"]
