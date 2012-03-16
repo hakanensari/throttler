@@ -1,21 +1,20 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "throttler/version"
+$:.push File.expand_path('../lib', __FILE__)
+require 'throttler/version'
 
 Gem::Specification.new do |s|
-  s.name        = "throttler"
+  s.name        = 'throttler'
   s.version     = Throttler::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Hakan Ensari", "Piotr Łaszewski"]
-  s.email       = ["code@papercavalier.com"]
-  s.homepage    = "http://github.com/papercavalier/throttler"
-  s.summary     = "A tired, cranky throttler"
-  s.description = "A tired, cranky module that helps you throttle stuff in parallel-running Ruby scripts on a single machine."
+  s.authors     = ['Hakan Ensari', 'Piotr Łaszewski']
+  s.email       = ['hakan.ensari@papercavalier.com']
+  s.homepage    = 'https://github.com/hakanensari/throttler'
+  s.summary     = 'Rate-limits code execution'
+  s.description = 'Throttler rate-limits code execution across threads or processes.'
 
-  s.rubyforge_project = "throttler"
-
-  s.files         = Dir.glob("lib/**/*") + %w(LICENSE README.md)
-  s.test_files    = Dir.glob("spec/**/*")
-  s.require_paths = ["lib"]
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ['lib']
 end
 

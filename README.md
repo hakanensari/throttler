@@ -1,26 +1,40 @@
 Throttler
 =========
 
-Throttler is a tired, cranky module that helps you throttle stuff in parallel-running Ruby scripts on a single machine.
+[![travis] [1]] [2]
 
-![Mapplethorpe](https://github.com/hakanensari/throttler/raw/master/mapplethorpe_chains.jpg)
+Throttler rate-limits code execution across threads or processes on a server.
 
-Example
--------
+![Mapplethorpe][3]
 
-Our very own use case: We have multiple Resque workers hitting the Amazon IP on multiple addresses and want to make sure they don't fire more than once per locale per IP.
+Installation
+------------
 
-Here's some pseudo code:
+```ruby
+# in your Gemfile
+gem 'throttler'
+```
 
-    class Worker
-      include Throttler
+Throttler works only on platforms that support file locking.
 
-      def perform(*args)
-        scope = "#{locale}-#{interface}"
-        freq  = 1.0
+Usage
+-----
 
-        throttle(scope, freq) do
-          # perform a request
-        end
-      end
+The following background job ensures workers will not scrape a site faster than
+once every second per IP address.
+
+```ruby
+class Scrape
+  def self.perform(site, ip_address, *ids)
+    # The block is syntactic sugar.
+    Throttler.limit 1.0, site, ip_address do
+      spider = Spider.new site, ip_address
+      spider.scrape *ids
     end
+  end
+end
+```
+
+[1]: https://secure.travis-ci.org/hakanensari/throttler.png
+[2]: http://travis-ci.org/hakanensari/throttler
+[3]: http://f.cl.ly/items/2S343U141D0N3b3h1K09/Mapplethorpe.png
