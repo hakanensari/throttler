@@ -1,5 +1,2 @@
-.DS_Store
-.rvmrc
 .bundle
 pkg
-.rake_tasks~
