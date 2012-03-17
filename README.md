@@ -3,19 +3,20 @@ Throttler
 
 [![travis] [1]] [2]
 
-Throttler rate-limits code execution across threads or processes on a server.
+Throttler rate-limits code execution across threads, evented blocks, or
+processes on a server.
 
 ![Mapplethorpe][3]
 
 Installation
 ------------
 
+Throttler works only on platforms that support file locking.
+
 ```ruby
-# in your Gemfile
+# Gemfile
 gem 'throttler'
 ```
-
-Throttler works only on platforms that support file locking.
 
 Usage
 -----
@@ -26,7 +27,6 @@ once every second per IP address.
 ```ruby
 class Scrape
   def self.perform(site, ip_address, *ids)
-    # The block is syntactic sugar.
     Throttler.limit 1.0, site, ip_address do
       spider = Spider.new site, ip_address
       spider.scrape *ids

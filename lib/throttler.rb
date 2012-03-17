@@ -12,12 +12,13 @@ module Throttler
 
     begin
       throttle = Throttle.new namespace
-      throttle.lock
+      throttle.strangle
       throttle.hold wait
     ensure
-      throttle.unlock
+      throttle.release
     end
 
+    # Syntactic sugar.
     yield if block_given?
   end
 end

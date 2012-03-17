@@ -8,15 +8,6 @@ module Throttler
 
     def initialize(namespace)
       @namespace = namespace
-      @file = File.open(path, File::RDWR|File::CREAT)
-    end
-
-    def lock
-      @file.flock(File::LOCK_EX)
-    end
-
-    def path
-      "#{self.class.tmp_dir}/.lock-#{@namespace}"
     end
 
     def hold(wait)
@@ -24,25 +15,37 @@ module Throttler
       timestamp!
     end
 
-    def unlock
-      @file.flock(File::LOCK_UN)
+    def release
+      @file.flock File::LOCK_UN
       @file.close
     end
 
+    def strangle
+      file.flock File::LOCK_EX
+    end
+
     private
+
+    def file
+      @file ||= File.open path, File::RDWR|File::CREAT
+    end
 
     def now
       Time.now.to_f
     end
 
+    def path
+      "#{self.class.tmp_dir}/.lock-#{@namespace}"
+    end
+
     def timestamp
-      @file.rewind
-      @file.gets.to_f
+      file.rewind
+      file.gets.to_f
     end
 
     def timestamp!
-      @file.rewind
-      @file.write now
+      file.rewind
+      file.write now
     end
   end
 end
