@@ -16,8 +16,8 @@ module Throttler
     end
 
     def release
-      @file.flock File::LOCK_UN
-      @file.close
+      file.flock File::LOCK_UN
+      file.close
     end
 
     def strangle
