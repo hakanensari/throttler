@@ -2,23 +2,28 @@ require 'throttler/throttle'
 
 # Throttler rate-limits code execution.
 module Throttler
-  # Ensures subsequent code, including any given block, is executed at most per
-  # every `wait` seconds.
-  #
-  # Optionally takes a splat of words to namespace the throttle.
-  def self.limit(wait, *words)
-    words << 'default' if words.empty?
-    namespace = words.join '-'
+  class << self
+    # Ensures subsequent code, including any given block, is executed at most per
+    # every `wait` seconds.
+    #
+    # Optionally takes a splat of words to namespace the throttle.
+    def limit(wait, *words)
+      words << 'default' if words.empty?
 
-    begin
-      throttle = Throttle.new namespace
-      throttle.strangle
-      throttle.hold wait
-    ensure
-      throttle.release
+      begin
+        throttle = Throttle.new namespace(words)
+        throttle.strangle
+        throttle.hold wait
+      ensure
+        throttle.release
+      end
+
+      # Syntactic sugar.
+      yield if block_given?
     end
 
-    # Syntactic sugar.
-    yield if block_given?
+    def namespace(words)
+      words.compact.join '-'
+    end
   end
 end

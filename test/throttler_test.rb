@@ -23,7 +23,7 @@ class ThrottlerTest < Test::Unit::TestCase
     assert_equal 1, time.to_i
   end
 
-  def test_namespace
+  def test_namespacing
     time = Benchmark.realtime do
       11.times do
         Process.fork { Work.perform }
@@ -32,5 +32,9 @@ class ThrottlerTest < Test::Unit::TestCase
       Process.waitall
     end
     assert_equal 1, time.to_i
+  end
+
+  def test_nils_in_namespace
+    assert_equal 'foo', Throttler.namespace(['foo', nil])
   end
 end
